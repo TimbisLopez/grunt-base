@@ -12,7 +12,7 @@
     "grunt-autoprefixer": "latest",
     "grunt-contrib-clean": "latest",
     "grunt-contrib-connect": "latest",
-    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-jshint": "latest"
   },
   "devDependencies": {
     "grunt": "^1.0.1"
