@@ -2,7 +2,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('clean', [ 'clean' ]);
   grunt.registerTask('build', [ 'jshint', 'concat:js', 'uglify:js', 'sass:style', 'autoprefixer', 'copy:html', 'copy:images', 'copy:fonts', 'copy:libs' ]);
-  grunt.registerTask('serve', [ 'connect', 'watch' ]);
+  grunt.registerTask('serve-node', [ 'connect', 'watch' ]);
+  grunt.registerTask('serve-php', [ 'php' ]);
+  grunt.registerTask('watch', [ 'watch' ]);
 
   grunt.initConfig({
 
@@ -117,12 +119,24 @@ module.exports = function(grunt) {
       }
     },
 
+    // SERVER NODE 
     connect: {
       server: {
         options: {
           port: 8080,
           base: 'build',
           livereload: true
+        }
+      }
+    },
+
+    // SERVER PHP
+    php: {
+      server: {
+        options: {
+          base: 'build',
+          port: 8010,
+          keepalive: true
         }
       }
     }
@@ -137,5 +151,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-php');
   
 };
