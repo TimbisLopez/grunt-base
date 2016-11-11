@@ -8,48 +8,32 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     //Validar JS
-    jshint: {
-      src: 'source/js/*.js'
-    },
+    jshint: { src: 'source/js/*.js' },
     // CONCATENA TODOS LOS JS, LOS MINIFICA Y OFUSCA
     concat: {
       js: {
-        options: {
-          separator: ';'
-        },
-        src: [
-          'source/js/*.js'
-        ],
+        options: { separator: ';' },
+        src: [ 'source/js/*.js' ],
         dest: 'build/js/script.min.js'
       },
     },
     uglify: {
-      options: {
-        mangle: true
-      },
+      options: { mangle: true },
       js: {
-        files: {
-          'build/js/script.min.js': ['build/js/script.min.js']
-        }
+        files: { 'build/js/script.min.js': ['build/js/script.min.js'] }
       }
     },
 
     // COMPILA SASS, LE AÑADE PREFIJOS Y LO MINIFICA
     sass: {
       style: {
-        options:{
-          style:'compressed'
-        },
-        files: {
-          "build/css/style.css": "source/css/style.scss"
-        }
+        options:{ style:'compressed' },
+        files: { "build/css/style.css": "source/css/style.scss" }
       }
     },
     autoprefixer: {
       build: {
-        files: {
-          'build/css/style.css': 'build/css/style.css'
-        }
+        files: { 'build/css/style.css': 'build/css/style.css' }
       }
     },
 
@@ -94,16 +78,12 @@ module.exports = function(grunt) {
 
     // LIMPIA CARPETA BUILD
     clean: {
-      build: {
-        src: [ 'build' ]
-      },
+      build: { src: [ 'build' ] },
     },
 
     // VIGILA CAMBIOS
     watch: {
-      options: {
-        livereload:true
-      },
+      options: { livereload:true },
       js: {
         files: ['source/js/*.js'],
         tasks: [ 'jshint', 'concat:js', 'uglify:js'],
