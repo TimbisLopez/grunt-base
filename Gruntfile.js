@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [ 'clean', 'jshint', 'concat:js', 'uglify:js', 'sass:style', 'autoprefixer', 'copy', 'notify:build' ]);
   grunt.registerTask('serve', [ 'connect', 'watch' ]);
   grunt.registerTask('watch', [ 'watch' ]);
+  grunt.registerTask('expose', [ 'connect', 'localtunnel:out', 'watch' ]);
 
   grunt.initConfig({
 
@@ -147,7 +148,16 @@ module.exports = function(grunt) {
           message: 'Watch completado!',
         }
       }
+    },
+    localtunnel: {
+    options: {
+      port: 9001,
+      open:true
+    },
+    out: {
+      
     }
+  }
   });
  
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -160,5 +170,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-notify');
+  grunt.loadNpmTasks('grunt-localtunnel-me');
 
 };

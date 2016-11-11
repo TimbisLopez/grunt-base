@@ -11,6 +11,7 @@ $ npm install grunt && npm install && grunt build
 ```bash
 $ grunt build : Limpia la carpeta build y procesa source
 $ grunt serve : Inicia el servidor y vigila cambios
+$ grunt expose : genera una url inicia el servidor y vigila cambios
 $ grunt watch : Vigila los cambios
 ```
 
