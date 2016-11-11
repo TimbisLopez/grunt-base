@@ -1,7 +1,6 @@
 module.exports = function(grunt) {
   
-  grunt.registerTask('clean', [ 'clean' ]);
-  grunt.registerTask('build', [ 'jshint', 'concat:js', 'uglify:js', 'sass:style', 'autoprefixer', 'copy' ]);
+  grunt.registerTask('build', [ 'clean', 'jshint', 'concat:js', 'uglify:js', 'sass:style', 'autoprefixer', 'copy', 'notify:build' ]);
   grunt.registerTask('serve', [ 'connect', 'watch' ]);
   grunt.registerTask('watch', [ 'watch' ]);
 
@@ -51,6 +50,7 @@ module.exports = function(grunt) {
         dest: 'build/img',
       },
       fonts: {
+        excludeEmpty: false,
         expand: true,
         cwd: 'source/font',
         src: '*.{eot,svg,ttf,woff,woff2}',
@@ -86,35 +86,35 @@ module.exports = function(grunt) {
       options: { livereload:true },
       js: {
         files: ['source/js/*.js'],
-        tasks: [ 'jshint', 'concat:js', 'uglify:js'],
+        tasks: [ 'jshint', 'concat:js', 'uglify:js', 'notify:watch'],
       },
       jsLibs: {
         files: ['source/js/lib/*.js'],
-        tasks: ['copy:libs'],
+        tasks: ['copy:libs', 'notify:watch'],
       },
       css: {
         files: ['source/css/*.scss'],
-        tasks: ['sass:style', 'autoprefixer'],
+        tasks: ['sass:style', 'autoprefixer', 'notify:watch'],
       },
       cssLibs: {
         files: ['source/css/*.css'],
-        tasks: ['copy:css', 'sass:style', 'autoprefixer'],
+        tasks: ['copy:css', 'sass:style', 'autoprefixer', 'notify:watch'],
       },   
       html: {
         files: ['source/*.html'],
-        tasks: ['copy:html'],
+        tasks: ['copy:html', 'notify:watch'],
       },      
       image: {
         files: ['source/img/*.{png,jpg,jpeg,gif,svg}'],
-        tasks: ['copy:images'],
+        tasks: ['copy:images', 'notify:watch'],
       },
       fonts: {
         files: ['source/font/*.{eot,svg,ttf,woff,woff2}'],
-        tasks: ['copy:fonts'],
+        tasks: ['copy:fonts', 'notify:watch'],
       }, 
       otros: {
         files: ['source/otros/**/*'],
-        tasks: ['copy:otros'],        
+        tasks: ['copy:otros', 'notify:watch'],        
       }
     },
 
@@ -124,6 +124,27 @@ module.exports = function(grunt) {
           port: 9001,
           base: 'build',
           livereload: true
+        }
+      }
+    },
+
+    notify_hooks: {
+      options: {
+        enabled: true,
+        max_jshint_notifications: 5,
+        success: false, 
+        duration: 5
+      }
+    },
+    notify: {
+      build: {
+        options: {
+          message: 'Build completado!',
+        }
+      },   
+      watch: {
+        options: {
+          message: 'Watch completado!',
         }
       }
     }
@@ -138,5 +159,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-notify');
 
 };
