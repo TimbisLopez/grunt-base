@@ -1,9 +1,8 @@
 module.exports = function(grunt) {
-
+  
   grunt.registerTask('clean', [ 'clean' ]);
-  grunt.registerTask('build', [ 'jshint', 'concat:js', 'uglify:js', 'sass:style', 'autoprefixer', 'copy:html', 'copy:images', 'copy:fonts', 'copy:libs' ]);
-  grunt.registerTask('serve-node', [ 'connect', 'watch' ]);
-  grunt.registerTask('serve-php', [ 'php' ]);
+  grunt.registerTask('build', [ 'jshint', 'concat:js', 'uglify:js', 'sass:style', 'autoprefixer', 'copy' ]);
+  grunt.registerTask('serve', [ 'connect', 'watch' ]);
   grunt.registerTask('watch', [ 'watch' ]);
 
   grunt.initConfig({
@@ -78,6 +77,18 @@ module.exports = function(grunt) {
         cwd: 'source/js/lib',
         src: '*.js',
         dest: 'build/js/lib',
+      },
+      css: {
+        expand: true,
+        cwd: 'source/css',
+        src: '*.css',
+        dest: 'build/css',
+      },
+      otros: {
+        expand: true,
+        cwd: 'source/otros',
+        src: '**/*',
+        dest: 'build/otros',
       }
     },
 
@@ -105,6 +116,10 @@ module.exports = function(grunt) {
         files: ['source/css/*.scss'],
         tasks: ['sass:style', 'autoprefixer'],
       },
+      cssLibs: {
+        files: ['source/css/*.css'],
+        tasks: ['copy:css', 'sass:style', 'autoprefixer'],
+      },   
       html: {
         files: ['source/*.html'],
         tasks: ['copy:html'],
@@ -116,27 +131,19 @@ module.exports = function(grunt) {
       fonts: {
         files: ['source/font/*.{eot,svg,ttf,woff,woff2}'],
         tasks: ['copy:fonts'],
+      }, 
+      otros: {
+        files: ['source/otros/**/*'],
+        tasks: ['copy:otros'],        
       }
     },
 
-    // SERVER NODE 
     connect: {
       server: {
         options: {
-          port: 8080,
+          port: 9001,
           base: 'build',
           livereload: true
-        }
-      }
-    },
-
-    // SERVER PHP
-    php: {
-      server: {
-        options: {
-          base: 'build',
-          port: 8010,
-          keepalive: true
         }
       }
     }
@@ -151,6 +158,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-php');
-  
+
 };

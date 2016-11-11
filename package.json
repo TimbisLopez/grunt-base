@@ -1,6 +1,6 @@
 {
   "name": "base",
-  "version": "1.0.0",
+  "version": "1.6.0",
   "dependencies": {
     "grunt-cli": "latest",
     "grunt-contrib-concat": "latest",
@@ -12,8 +12,7 @@
     "grunt-autoprefixer": "latest",
     "grunt-contrib-clean": "latest",
     "grunt-contrib-connect": "latest",
-    "grunt-contrib-jshint": "latest",
-    "grunt-php": "latest"
+    "grunt-contrib-jshint": "latest"
   },
   "devDependencies": {
     "grunt": "^1.0.1"
