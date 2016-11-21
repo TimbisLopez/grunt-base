@@ -1,6 +1,7 @@
 # grunt-base
 ===================
-Grunt base for new projects.
+Grunt base para nuevos proyectos.
+Ultimo - v1.7
 
 ###Uso
 ```bash

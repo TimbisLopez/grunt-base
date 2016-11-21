@@ -1,9 +1,9 @@
 module.exports = function(grunt) {
   
   grunt.registerTask('build', [ 'clean', 'jshint', 'concat:js', 'uglify:js', 'sass:style', 'autoprefixer', 'copy', 'notify:build' ]);
-  grunt.registerTask('serve', [ 'connect', 'watch' ]);
+  grunt.registerTask('serve', [ 'connect', 'watch:js', 'watch:jsLibs', 'watch:css', 'watch:cssLibs', 'watch:html', 'watch:image', 'watch:fonts', 'watch:otros' ]);
   grunt.registerTask('watch', [ 'watch' ]);
-  grunt.registerTask('expose', [ 'connect', 'localtunnel:out', 'watch' ]);
+  grunt.registerTask('expose', [ 'connect', 'localtunnel:out', 'watch:js', 'watch:jsLibs', 'watch:css', 'watch:cssLibs', 'watch:html', 'watch:image', 'watch:fonts', 'watch:otros' ]);
 
   grunt.initConfig({
 
@@ -42,6 +42,12 @@ module.exports = function(grunt) {
         expand: true,
         cwd: 'source',
         src: ['*.html'],
+        dest: 'build',
+      },      
+      php: {
+        expand: true,
+        cwd: 'source',
+        src: ['*.php'],
         dest: 'build',
       },
       images: {
@@ -82,7 +88,7 @@ module.exports = function(grunt) {
       build: { src: [ 'build' ] },
     },
 
-    // VIGILA CAMBIOS
+    // VIGILA CAMBIOS 
     watch: {
       options: { livereload:true },
       js: {
@@ -104,6 +110,10 @@ module.exports = function(grunt) {
       html: {
         files: ['source/*.html'],
         tasks: ['copy:html', 'notify:watch'],
+      },         
+      php: {
+        files: ['source/*.php'],
+        tasks: ['copy:php', 'notify:watch'],
       },      
       image: {
         files: ['source/img/*.{png,jpg,jpeg,gif,svg}'],
